@@ -56,9 +56,10 @@ class User extends db {
         }
     }
 
-    public function getAllUsers(){
-        $query = "SELECT * FROM users";
-        $stmt = $this->connect()->query($query);
+    public function getAllUsers($user_id){
+        $query = "SELECT * FROM users WHERE id != :user_id";
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":user_id",$user_id);
         
         try{
             $stmt->execute();
