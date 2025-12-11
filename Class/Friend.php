@@ -41,9 +41,10 @@ class Friend extends db
     }
 
     public function getPendingRequests($user_id){
-        $query = "SELECT * FROM friend_request WHERE receiver_id = :user_id";
+        $query = "SELECT * FROM friend_request WHERE receiver_id = :user_id AND status = :pending";
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":user_id",$user_id);
+        $stmt->bindParam(":pending","pending");
 
         try{
             $stmt->execute();
