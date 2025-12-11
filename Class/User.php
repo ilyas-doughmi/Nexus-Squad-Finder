@@ -41,6 +41,19 @@ class User extends db {
         $_SESSION["username"] = $user["user_name"];
         $_SESSION["email"] = $user["email"];
         $_SESSION["profile"] = $user["profile_img"];
+        $_SESSION["rank"] = $user["rank"];
+    }
+
+    public function getUserInfo($user_id){
+        $query = "SELECT * FROM users WHERE id = :user_id";
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":user_id",$user_id);
+        try{
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo $e->getMessage();
+        }
     }
 
 }
