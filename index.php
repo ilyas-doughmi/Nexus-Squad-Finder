@@ -133,17 +133,17 @@ if (!$isloggedin) { ?>
         <div class="max-w-7xl mx-auto px-6 md:px-8 h-20 flex items-center justify-between">
 
             <div class="flex items-center gap-12">
-                <a href="../index.php" class="flex items-center gap-2 group">
+                <a href="index.php" class="flex items-center gap-2 group">
                     <i class="fa-solid fa-network-wired text-nexusGreen text-2xl group-hover:animate-pulse"></i>
                     <span class="text-2xl font-black font-heading tracking-widest text-white uppercase group-hover:text-nexusGreen transition-colors">Nexus</span>
                 </a>
 
                 <div class="hidden md:flex items-center gap-8 font-heading font-bold uppercase tracking-wider text-sm h-full">
-                    <a href="lobbies.php" class="text-white h-full flex items-center border-b-2 border-nexusGreen">
+                    <a href="lobbies.php" class="text-gray-500 hover:text-white h-full flex items-center border-b-2 border-transparent hover:border-white/20 transition-colors">
                         Lobby Finder
                     </a>
-                    <a href="my-squad.php" class="text-gray-500 hover:text-white h-full flex items-center border-b-2 border-transparent hover:border-white/20 transition-colors">
-                        My Squad
+                    <a href="pages/addfriend.php" class="text-gray-500 hover:text-white h-full flex items-center border-b-2 border-transparent hover:border-white/20 transition-colors">
+                        Scout Players
                     </a>
                     <a href="scrims.php" class="text-gray-500 hover:text-white h-full flex items-center border-b-2 border-transparent hover:border-white/20 transition-colors">
                         Scrims
