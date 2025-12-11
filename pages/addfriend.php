@@ -13,6 +13,7 @@ require_once("../Class/Connexion.php");
 require_once("../Class/User.php");
 $user = new User;
 $user_info = $user->getUserInfo($_SESSION["id"]);
+$all_users = $user->getAllUsers();
 ?>
 
 
@@ -180,8 +181,8 @@ if (!$isloggedin) { ?>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
+        <?php foreach($all_users as $all){?>
+               <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
                 <div class="absolute inset-0 bg-nexusGreen/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
                 <div class="relative bg-[#0a0a0a] rounded-xl p-5 h-full flex flex-col items-center text-center overflow-hidden">
@@ -191,139 +192,26 @@ if (!$isloggedin) { ?>
                     </div>
 
                     <div class="w-20 h-20 rounded-xl mb-4 p-0.5 border-2 border-white/10 group-hover:border-nexusGreen transition-colors relative">
-                        <img src="https://i.pravatar.cc/150?u=ace" class="w-full h-full rounded-[10px] object-cover">
+                        <img src="<?= $all["profile_img"] ?>" class="w-full h-full rounded-[10px] object-cover">
                         <div class="absolute -bottom-2 -right-2 bg-purple-900 text-purple-200 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-500 shadow-lg">
-                            D3
+                            <?= $all["rank"] ?>
                         </div>
                     </div>
 
-                    <h3 class="text-xl font-heading font-bold text-white mb-1">AceOperator</h3>
+                    <h3 class="text-xl font-heading font-bold text-white mb-1"><?= $all["user_name"] ?></h3>
                     <p class="text-xs text-gray-500 font-mono uppercase tracking-wide mb-4">
-                        <i class="fa-solid fa-gamepad mr-1 text-nexusGreen"></i> CS2 • AWPer
+                        <i class="fa-solid fa-gamepad mr-1 text-nexusGreen"></i> <?= $all["game_playing"] ?>
                     </p>
 
-                    <div class="flex justify-center gap-4 w-full border-t border-white/5 pt-3 mb-4">
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">K/D</p>
-                            <p class="text-sm font-bold text-white">1.82</p>
-                        </div>
-                        <div class="w-[1px] h-full bg-white/10"></div>
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">Win%</p>
-                            <p class="text-sm font-bold text-nexusGreen">62%</p>
-                        </div>
-                    </div>
+    
 
                     <button class="w-full bg-white/5 border border-white/10 text-white py-2 rounded font-heading font-bold uppercase text-sm tracking-wider hover:bg-nexusGreen hover:text-black hover:border-nexusGreen transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_15px_rgba(207,255,4,0.3)]">
                         <i class="fa-solid fa-user-plus"></i> Scout Player
                     </button>
                 </div>
             </div>
-
-            <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
-                <div class="absolute inset-0 bg-nexusGreen/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="relative bg-[#0a0a0a] rounded-xl p-5 h-full flex flex-col items-center text-center overflow-hidden">
-                    <div class="absolute top-3 right-3 z-10"><i class="fa-brands fa-xbox text-gray-600 group-hover:text-nexusGreen transition-colors"></i></div>
-                    
-                    <div class="w-20 h-20 rounded-xl mb-4 p-0.5 border-2 border-white/10 group-hover:border-nexusGreen transition-colors relative">
-                        <img src="https://i.pravatar.cc/150?u=wraith" class="w-full h-full rounded-[10px] object-cover">
-                        <div class="absolute -bottom-2 -right-2 bg-red-900 text-red-200 text-[10px] font-bold px-2 py-0.5 rounded border border-red-500 shadow-lg">
-                            PRED
-                        </div>
-                    </div>
-
-                    <h3 class="text-xl font-heading font-bold text-white mb-1">WraithMain_TV</h3>
-                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wide mb-4">
-                        <i class="fa-solid fa-gamepad mr-1 text-nexusGreen"></i> Apex • Fragger
-                    </p>
-
-                    <div class="flex justify-center gap-4 w-full border-t border-white/5 pt-3 mb-4">
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">K/D</p>
-                            <p class="text-sm font-bold text-white">4.20</p>
-                        </div>
-                        <div class="w-[1px] h-full bg-white/10"></div>
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">Win%</p>
-                            <p class="text-sm font-bold text-nexusGreen">30%</p>
-                        </div>
-                    </div>
-
-                    <button class="w-full bg-white/5 border border-white/10 text-white py-2 rounded font-heading font-bold uppercase text-sm tracking-wider hover:bg-nexusGreen hover:text-black hover:border-nexusGreen transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_15px_rgba(207,255,4,0.3)]">
-                        <i class="fa-solid fa-user-plus"></i> Scout Player
-                    </button>
-                </div>
-            </div>
-
-            <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
-                <div class="absolute inset-0 bg-nexusGreen/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="relative bg-[#0a0a0a] rounded-xl p-5 h-full flex flex-col items-center text-center overflow-hidden">
-                    <div class="absolute top-3 right-3 z-10"><i class="fa-brands fa-discord text-gray-600 group-hover:text-nexusGreen transition-colors"></i></div>
-                    
-                    <div class="w-20 h-20 rounded-xl mb-4 p-0.5 border-2 border-white/10 group-hover:border-nexusGreen transition-colors relative">
-                        <img src="https://i.pravatar.cc/150?u=sage" class="w-full h-full rounded-[10px] object-cover">
-                        <div class="absolute -bottom-2 -right-2 bg-green-900 text-green-200 text-[10px] font-bold px-2 py-0.5 rounded border border-green-500 shadow-lg">
-                            IMM
-                        </div>
-                    </div>
-
-                    <h3 class="text-xl font-heading font-bold text-white mb-1">PocketSage</h3>
-                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wide mb-4">
-                        <i class="fa-solid fa-gamepad mr-1 text-nexusGreen"></i> Val • Support
-                    </p>
-
-                    <div class="flex justify-center gap-4 w-full border-t border-white/5 pt-3 mb-4">
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">K/D</p>
-                            <p class="text-sm font-bold text-white">0.9</p>
-                        </div>
-                        <div class="w-[1px] h-full bg-white/10"></div>
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">Win%</p>
-                            <p class="text-sm font-bold text-nexusGreen">75%</p>
-                        </div>
-                    </div>
-
-                    <button class="w-full bg-white/5 border border-white/10 text-white py-2 rounded font-heading font-bold uppercase text-sm tracking-wider hover:bg-nexusGreen hover:text-black hover:border-nexusGreen transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_15px_rgba(207,255,4,0.3)]">
-                        <i class="fa-solid fa-user-plus"></i> Scout Player
-                    </button>
-                </div>
-            </div>
-
-            <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
-                <div class="absolute inset-0 bg-nexusGreen/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="relative bg-[#0a0a0a] rounded-xl p-5 h-full flex flex-col items-center text-center overflow-hidden">
-                    <div class="absolute top-3 right-3 z-10"><i class="fa-solid fa-globe text-gray-600 group-hover:text-nexusGreen transition-colors"></i></div>
-                    
-                    <div class="w-20 h-20 rounded-xl mb-4 p-0.5 border-2 border-white/10 group-hover:border-nexusGreen transition-colors relative">
-                        <img src="https://i.pravatar.cc/150?u=faker" class="w-full h-full rounded-[10px] object-cover">
-                        <div class="absolute -bottom-2 -right-2 bg-yellow-900 text-yellow-200 text-[10px] font-bold px-2 py-0.5 rounded border border-yellow-500 shadow-lg">
-                            CHAL
-                        </div>
-                    </div>
-
-                    <h3 class="text-xl font-heading font-bold text-white mb-1">MidGap_KR</h3>
-                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wide mb-4">
-                        <i class="fa-solid fa-gamepad mr-1 text-nexusGreen"></i> LoL • Mid
-                    </p>
-
-                    <div class="flex justify-center gap-4 w-full border-t border-white/5 pt-3 mb-4">
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">K/D</p>
-                            <p class="text-sm font-bold text-white">5.2</p>
-                        </div>
-                        <div class="w-[1px] h-full bg-white/10"></div>
-                        <div>
-                            <p class="text-[10px] text-gray-600 uppercase font-bold">Win%</p>
-                            <p class="text-sm font-bold text-nexusGreen">51%</p>
-                        </div>
-                    </div>
-
-                    <button class="w-full bg-white/5 border border-white/10 text-white py-2 rounded font-heading font-bold uppercase text-sm tracking-wider hover:bg-nexusGreen hover:text-black hover:border-nexusGreen transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_15px_rgba(207,255,4,0.3)]">
-                        <i class="fa-solid fa-user-plus"></i> Scout Player
-                    </button>
-                </div>
-            </div>
+       <?php  } ?>
+         
 
         </div>
 
