@@ -346,16 +346,24 @@ if (!$isloggedin) { ?>
                                 <span class="font-heading font-bold text-white">${e.user_name}</span>
                             </div>
                             <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-nexusGreen text-black text-xs font-bold uppercase rounded hover:bg-white transition">Accept</button>
+                                <button onclick="acceptFriend(${e.id})" class="px-3 py-1 bg-nexusGreen text-black text-xs font-bold uppercase rounded hover:bg-white transition">Accept</button>
                                 <button class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase rounded hover:bg-red-500 transition">Decline</button>
                             </div>
                         </div>`
                         friendr_container.insertAdjacentHTML("beforeend",card);
             });
-            console.log("friend requests data ",data);
         })
     }
     getPendingRequests(<?= $_SESSION["id"] ?>)
+
+    function acceptFriend(id){
+        let form = new FormData();
+        form.append("sender_id",id);
+        fetch("../Includes/friend_request/accept_friend.php",{
+            method: "POST",
+            body: form 
+        });
+    }
 </script>
 </body>
 </html>
