@@ -5,8 +5,8 @@ if (isset($_SESSION["id"])) {
     $isloggedin = true;
 }
 
-require_once("../Class/Connexion.php");
-require_once("../Class/User.php");
+require_once("Class/connexion.php");
+require_once("Class/User.php");
 $user = new User;
 $user_info = $user->getUserInfo($_SESSION["id"]);
 ?>
