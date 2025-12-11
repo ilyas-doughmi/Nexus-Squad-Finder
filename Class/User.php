@@ -40,6 +40,7 @@ class User extends db {
         $_SESSION["id"] = $user["id"];
         $_SESSION["username"] = $user["user_name"];
         $_SESSION["email"] = $user["email"];
+        $_SESSION["profile"] = $user["profile_img"];
     }
 
 }
