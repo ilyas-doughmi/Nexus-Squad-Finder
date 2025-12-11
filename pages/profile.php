@@ -347,7 +347,7 @@ if (!$isloggedin) { ?>
                             </div>
                             <div class="flex gap-2">
                                 <button onclick="acceptFriend(${e.id})" class="px-3 py-1 bg-nexusGreen text-black text-xs font-bold uppercase rounded hover:bg-white transition">Accept</button>
-                                <button class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase rounded hover:bg-red-500 transition">Decline</button>
+                                <button onclick="rejectFriend(${e.id})" class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase rounded hover:bg-red-500 transition">Decline</button>
                             </div>
                         </div>`
                         friendr_container.insertAdjacentHTML("beforeend",card);
@@ -359,6 +359,16 @@ if (!$isloggedin) { ?>
     function acceptFriend(id){
         let form = new FormData();
         form.append("sender_id",id);
+        form.append("status","accepted");
+        fetch("../Includes/friend_request/accept_friend.php",{
+            method: "POST",
+            body: form 
+        });
+    }
+    function rejectFriend(id){
+    let form = new FormData();
+        form.append("sender_id",id);
+        form.append("status","rejected");
         fetch("../Includes/friend_request/accept_friend.php",{
             method: "POST",
             body: form 
