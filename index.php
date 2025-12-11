@@ -1,14 +1,17 @@
 <?php 
 session_start();
+require_once("Class/connexion.php");
+require_once("Class/User.php");
 $isloggedin = false;
 if (isset($_SESSION["id"])) {
     $isloggedin = true;
+    $user = new User;
+    $user_info = $user->getUserInfo($_SESSION["id"]);
 }
 
-require_once("Class/connexion.php");
-require_once("Class/User.php");
-$user = new User;
-$user_info = $user->getUserInfo($_SESSION["id"]);
+
+
+
 ?>
 
 <!DOCTYPE html>
