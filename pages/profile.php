@@ -315,29 +315,11 @@ if (!$isloggedin) { ?>
                 </div>
 
                 <div class="bg-white/5 rounded-2xl p-6 border border-white/5">
-                    <h4 class="text-sm font-mono uppercase text-gray-400 font-bold mb-4">Pending Requests <span class="bg-nexusGreen text-black px-1.5 rounded ml-2">2</span></h4>
+                    <h4 class="text-sm font-mono uppercase text-gray-400 font-bold mb-4">Pending Requests <span class="bg-nexusGreen text-black px-1.5 rounded ml-2" id="request_count"></span></h4>
                     
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <img src="https://i.pravatar.cc/150?u=random" class="w-8 h-8 rounded bg-gray-700">
-                                <span class="font-heading font-bold text-white">NoobMaster69</span>
-                            </div>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-nexusGreen text-black text-xs font-bold uppercase rounded hover:bg-white transition">Accept</button>
-                                <button class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase rounded hover:bg-red-500 transition">Decline</button>
-                            </div>
-                        </div>
-                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <img src="https://i.pravatar.cc/150?u=random2" class="w-8 h-8 rounded bg-gray-700">
-                                <span class="font-heading font-bold text-white">FakerFannn</span>
-                            </div>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-nexusGreen text-black text-xs font-bold uppercase rounded hover:bg-white transition">Accept</button>
-                                <button class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase rounded hover:bg-red-500 transition">Decline</button>
-                            </div>
-                        </div>
+                    <div id="friendr_container" class="space-y-3">
+                        
+                  
                     </div>
                 </div>
 
@@ -345,6 +327,35 @@ if (!$isloggedin) { ?>
         </div>
 
     </main>
-
+<script>
+    function getPendingRequests(id)
+    {
+        const friendr_container = document.getElementById("friendr_container");
+        const request_count = document.getElementById("request_count");
+        fetch("../Includes/friend_request/fetch_requests.php",{
+            method : "POST"
+        })
+        .then(res=>res.json())
+        .then(data=> {
+            request_count.textContent = data.length;
+            friendr_container.innerHTML = "";
+            data.forEach(e => {
+                card = `<div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img src="${e.profile_img}" class="w-8 h-8 rounded bg-gray-700">
+                                <span class="font-heading font-bold text-white">${e.user_name}</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-nexusGreen text-black text-xs font-bold uppercase rounded hover:bg-white transition">Accept</button>
+                                <button class="px-3 py-1 bg-white/10 text-white text-xs font-bold uppercase rounded hover:bg-red-500 transition">Decline</button>
+                            </div>
+                        </div>`
+                        friendr_container.insertAdjacentHTML("beforeend",card);
+            });
+            console.log("friend requests data ",data);
+        })
+    }
+    getPendingRequests(<?= $_SESSION["id"] ?>)
+</script>
 </body>
 </html>
