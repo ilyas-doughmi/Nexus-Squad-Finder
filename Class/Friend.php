@@ -39,4 +39,17 @@ class Friend extends db
             return "you've already send him inv";
         }
     }
+
+    public function getPendingRequests($user_id){
+        $query = "SELECT * FROM friend_request WHERE receiver_id = :user_id";
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":user_id",$user_id);
+
+        try{
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 }
