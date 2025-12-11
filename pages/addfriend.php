@@ -10,9 +10,13 @@ if (!isset($_SESSION["id"])) {
 }
 require_once("../Class/Connexion.php");
 require_once("../Class/User.php");
+require_once("../Class/Friend.php");
+
 $user = new User;
+$friend = new Friend;
 $user_info = $user->getUserInfo($_SESSION["id"]);
 $all_users = $user->getAllUsers($_SESSION["id"]);
+
 ?>
 
 
@@ -198,8 +202,9 @@ $all_users = $user->getAllUsers($_SESSION["id"]);
             <?php if (count($all_users)  == 0) { ?>
                 <h1>no user found</h1>
             <?php  } else { ?>
-                <?php foreach ($all_users as $all) { ?>
-                    <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
+                <?php foreach ($all_users as $all) { 
+                    if(!$friend->isFriend($_SESSION["id"],$all["id"])){?>
+                         <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-nexusGreen/50 transition-all duration-300 hover:-translate-y-1">
                         <div class="absolute inset-0 bg-nexusGreen/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
                         <div class="relative bg-[#0a0a0a] rounded-xl p-5 h-full flex flex-col items-center text-center overflow-hidden">
@@ -227,6 +232,39 @@ $all_users = $user->getAllUsers($_SESSION["id"]);
                             </button>
                         </div>
                     </div>
+
+                   <?php } else{?>
+
+                    <div class="group relative bg-[#0f0f0f] border border-white/10 rounded-2xl p-1 hover:border-blue-600/80 transition-all duration-300 hover:-translate-y-1">
+                        <div class="absolute inset-0 bg-blue-600/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                        <div class="relative bg-[#0a0a0a] rounded-xl p-5 h-full flex flex-col items-center text-center overflow-hidden">
+
+                            <div class="absolute top-3 right-3 z-10">
+                                <i class="fa-brands fa-steam text-gray-600 group-hover:text-blue-600 transition-colors"></i>
+                            </div>
+
+                            <div class="w-20 h-20 rounded-xl mb-4 p-0.5 border-2 border-white/10 group-hover:border-blue-600 transition-colors relative">
+                                <img src="<?= $all["profile_img"] ?>" class="w-full h-full rounded-[10px] object-cover">
+                                <div class="absolute -bottom-2 -right-2 bg-purple-900 text-purple-200 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-500 shadow-lg ">
+                                    <?= $all["rank"] ?>
+                                </div>
+                            </div>
+
+                            <h3 class="text-xl font-heading font-bold text-white mb-1"><?= $all["user_name"] ?></h3>
+                            <p class="text-xs text-gray-500 font-mono uppercase tracking-wide mb-4">
+                                <i class="fa-solid fa-gamepad mr-1 text-blue-600"></i> <?= $all["game_playing"] ?>
+                            </p>
+
+
+                        
+                            <button class="w-full bg-white/5 border border-white/10 text-white py-2 rounded font-heading font-bold uppercase text-sm tracking-wider hover:bg-blue-600/50 hover:text-white hover:border-blue-600 transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_15px_rgba(207,255,4,0.3)]">
+                                <i class="fa-solid fa-message"></i> Message
+                            </button>
+                        </div>
+                    </div>
+                 <?php  }?>
+                   
                 <?php  } ?>
             <?php } ?>
 
