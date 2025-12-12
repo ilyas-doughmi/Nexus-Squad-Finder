@@ -68,4 +68,20 @@ class User extends db {
             return $e->getMessage();
         }
     }
+
+    public function SearchUser($user_name){
+        $query = "SELECT * FROM users WHERE user_name LIKE :username";
+        $stmt = $this->connect()->prepare($query);
+        $search = "%".$user_name."%";
+
+        $stmt->bindParam(":username",$search);
+        
+        
+        try{
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            return $e->getMessage();
+        }
+    }
 }
