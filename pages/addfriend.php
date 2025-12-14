@@ -268,6 +268,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
 
         let data = new FormData();
         data.append("username", username);
+        data.append("myusername",'<?= $_SESSION["username"] ?>');
 
         fetch("../Includes/searchUser.php", {
             method: "POST",
