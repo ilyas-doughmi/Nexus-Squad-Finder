@@ -21,6 +21,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
 
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
                 extend: {
                     colors: {
                         nexusGreen: '#cfff04',
-                        nexusDark: '#0a0a0a', 
+                        nexusDark: '#0a0a0a',
                         nexusGray: '#171717',
                     },
                     fontFamily: {
@@ -50,7 +51,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
     <style>
         body {
             background-color: #050505;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -71,6 +72,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
+
         .nexus-input:focus {
             outline: none;
             border-color: #cfff04;
@@ -86,13 +88,14 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
         }
     </style>
 </head>
+
 <body class="text-white font-body min-h-screen flex flex-col items-center justify-center relative selection:bg-nexusGreen selection:text-black">
 
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
         <div class="absolute top-[20%] left-[30%] w-[500px] h-[500px] bg-nexusGreen/5 blur-[120px] rounded-full"></div>
     </div>
 
-      <?php
+    <?php
     if (!$isloggedin) { ?>
 
         <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-black/50 backdrop-blur-md">
@@ -179,7 +182,6 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
     <?php } ?>
 
     <main class="w-full max-w-lg px-2 relative z-2 pt-3">
-
         <div class="text-center mb-10">
             <div class="inline-flex items-center gap-2 border border-nexusGreen/30 bg-nexusGreen/5 px-3 py-1 rounded-full text-nexusGreen text-xs font-mono tracking-widest uppercase mb-4">
                 <span class="w-2 h-2 rounded-full bg-nexusGreen animate-pulse"></span>
@@ -189,16 +191,16 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
             <p class="text-gray-500 text-sm">Set up your squad parameters and start recruiting.</p>
         </div>
 
-        <form action="" method="POST" class="glass-form p-8 rounded-3xl relative overflow-hidden group">
-            
+        <div action="" method="POST" class="glass-form p-8 rounded-3xl relative overflow-hidden group">
+
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-nexusGreen to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
 
             <div class="space-y-6">
-                
+
                 <div class="relative">
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Select Game Protocol</label>
                     <div class="relative">
-                        <select name="game_name" class="nexus-input w-full rounded-xl px-5 py-4 text-white font-heading font-bold uppercase text-lg cursor-pointer appearance-none">
+                        <select id="select_game" name="game_name" class="nexus-input w-full rounded-xl px-5 py-4 text-white font-heading font-bold uppercase text-lg cursor-pointer appearance-none">
                             <option value="" disabled selected class="bg-[#0a0a0a] text-gray-500">Choose Game...</option>
                             <option value="Valorant" class="bg-[#0a0a0a]">Valorant</option>
                             <option value="CS2" class="bg-[#0a0a0a]">Counter-Strike 2</option>
@@ -211,18 +213,48 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
 
                 <div>
                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Lobby Title</label>
-                    <input type="text" name="title" placeholder="e.g. Road to Immortal (Mic Only)" 
+                    <input id="title_inp" type="text" name="title" placeholder="e.g. Road to Immortal (Mic Only)"
                         class="nexus-input w-full rounded-xl px-5 py-4 text-white placeholder-gray-600 font-medium focus:placeholder-white/20 transition-all">
                 </div>
 
-                <button type="submit" class="w-full bg-nexusGreen text-black font-heading font-black uppercase text-xl py-5 rounded-xl hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(207,255,4,0.2)] mt-4 flex items-center justify-center gap-3">
+                <button id="submit_btn" class="w-full bg-nexusGreen text-black font-heading font-black uppercase text-xl py-5 rounded-xl hover:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(207,255,4,0.2)] mt-4 flex items-center justify-center gap-3">
                     <i class="fa-solid fa-rocket"></i> Launch Lobby
                 </button>
 
             </div>
-        </form>
+        </div>
 
     </main>
 
+
+    <script>
+        const select_game = document.getElementById("select_game");
+        const submit_btn = document.getElementById("submit_btn");
+        const title_inp = document.getElementById("title_inp");
+
+        submit_btn.addEventListener("click", function() {
+
+            if (select_game.value == "" || title_inp.value.trim().length == 0) {
+                alert("Fill all inputs..");
+                return;
+            } else {
+                let data = new FormData();
+                data.append("select_game", select_game.value);
+                data.append("title", title_inp.value);
+
+
+                fetch("../Includes/lobby/create_lobby.php", {
+                        method: "POST",
+                        body: data
+                    })
+
+                    .then(response => response.text())
+
+                    .then(data => alert(data))
+            }
+        })
+    </script>
+
 </body>
+
 </html>
