@@ -153,7 +153,7 @@ if (!$isloggedin) { ?>
 
             <div class="flex items-center gap-6">
 
-                <a href="create_lobby.php" class="hidden md:flex items-center gap-2 border border-nexusGreen/30 bg-nexusGreen/5 text-nexusGreen px-4 py-2 rounded hover:bg-nexusGreen hover:text-black transition-all group shadow-[0_0_10px_rgba(207,255,4,0.1)] hover:shadow-[0_0_20px_rgba(207,255,4,0.4)]">
+                <a href="pages/create_lobby.php" class="hidden md:flex items-center gap-2 border border-nexusGreen/30 bg-nexusGreen/5 text-nexusGreen px-4 py-2 rounded hover:bg-nexusGreen hover:text-black transition-all group shadow-[0_0_10px_rgba(207,255,4,0.1)] hover:shadow-[0_0_20px_rgba(207,255,4,0.4)]">
                     <i class="fa-solid fa-plus text-sm"></i>
                     <span class="font-heading font-bold uppercase text-sm tracking-wide">Create Lobby</span>
                 </a>

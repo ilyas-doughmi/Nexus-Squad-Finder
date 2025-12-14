@@ -119,7 +119,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
                         <a href="lobbies.php" class="text-gray-500 hover:text-white h-full flex items-center border-b-2 border-transparent hover:border-white/20 transition-colors">
                             Lobby Finder
                         </a>
-                        <a href="my-squad.php" class="text-white h-full flex items-center border-b-2 border-nexusGreen">
+                        <a href="addfriend.php" class="text-white h-full flex items-center border-b-2 border-nexusGreen">
                             Scout Players
                         </a>
                         <a href="scrims.php" class="text-gray-500 hover:text-white h-full flex items-center border-b-2 border-transparent hover:border-white/20 transition-colors">
@@ -189,16 +189,7 @@ $user_info = $user->getUserInfo($_SESSION["id"]);
             </form>
         </div>
 
-        <div class="flex gap-4 mb-8 overflow-x-auto pb-2">
-            <button class="px-4 py-2 bg-nexusGreen text-black font-bold uppercase text-xs tracking-wider rounded border border-nexusGreen">All Games</button>
-            <button class="px-4 py-2 bg-[#0f0f0f] text-gray-400 hover:text-white font-bold uppercase text-xs tracking-wider rounded border border-white/10 hover:border-white/30 transition-colors">Valorant</button>
-            <button class="px-4 py-2 bg-[#0f0f0f] text-gray-400 hover:text-white font-bold uppercase text-xs tracking-wider rounded border border-white/10 hover:border-white/30 transition-colors">CS2</button>
-            <button class="px-4 py-2 bg-[#0f0f0f] text-gray-400 hover:text-white font-bold uppercase text-xs tracking-wider rounded border border-white/10 hover:border-white/30 transition-colors">Apex Legends</button>
-            <button class="px-4 py-2 bg-[#0f0f0f] text-gray-400 hover:text-white font-bold uppercase text-xs tracking-wider rounded border border-white/10 hover:border-white/30 transition-colors">League</button>
-        </div>
-
         <div id="players_container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
 
         </div>
 
